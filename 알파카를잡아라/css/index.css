@@ -7,7 +7,8 @@ body {
 header {
     background: #A566FF;
     padding: 20px 0;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+    box-shadow: 0 1px 1px 0 #484848;
 }
 
 div#wrap {
@@ -17,14 +18,9 @@ div#wrap {
 }
 
 div#map {
-    width: 750px;
+    width: 800px;
     display: flex;
     flex-flow: row wrap;
+    justify-content: space-around;
     align-content: space-around;
-}
-
-div#map > div {
-    width: 150px;
-    height: 150px;
-    background: url("../image/HideAlpaca.png") no-repeat center;
 }
