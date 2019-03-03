@@ -1,0 +1,30 @@
+@import url("reset.css");
+
+body {
+    background: #D1B2FF;
+}
+
+header {
+    background: #A566FF;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+div#wrap {
+    display: flex;
+    margin-top: auto;
+    justify-content: center;
+}
+
+div#map {
+    width: 750px;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: space-around;
+}
+
+div#map > div {
+    width: 150px;
+    height: 150px;
+    background: url("../image/HideAlpaca.png") no-repeat center;
+}
