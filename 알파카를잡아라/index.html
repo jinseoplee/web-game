@@ -4,16 +4,37 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>알파카를 잡아라!</title>
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700" rel="stylesheet">
         <link rel="stylesheet" href="./css/index.css">
-        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="./js/index.js"></script>
     </head>
     <body>
         <header>
-            You can't touch alpaca
-        </header>
-        <div id="wrap">
-            <div id="map">
+            <p class="headerTitle">You can't touch alpaca</p>
+            <div class="panel">
+                <div class="panel__control">
+                    <div class="panel__gameSteps">
+                        <input type="radio" id="easy" name="step" value="1">
+                        <label class="panel__btn panel__btn--forStep" for="easy">EASY</label>
+                        <input type="radio" id="medium" name="step" value="2">
+                        <label class="panel__btn panel__btn--forStep" for="medium">MEDIUM</label>
+                        <input type="radio" id="hard" name="step" value="3">
+                        <label class="panel__btn panel__btn--forStep" for="hard">HARD</label>
+                    </div>
+                    <button class="panel__btn panel__btn--forStart" id="gameStart">START</button>
+                </div>
+                <div class="pannel__status">
+                    <p class="pannel__time">
+                        <span id="time">60s</span>
+                    </p>
+                    <p class="pannel__score">
+                        SCORE : <span id="score">0</span>
+                    </p>
+                </div>
             </div>
+        </header>
+        <div class="wrap">
+            <div id="map"></div>
         </div>
         <iframe width="0" height="0" src="https://www.youtube.com/embed/dvQeKFXO6J4?rel=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </body>
