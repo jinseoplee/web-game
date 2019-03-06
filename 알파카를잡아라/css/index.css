@@ -1,8 +1,8 @@
 @import url("reset.css");
 
 body {
-    background: #D1B2FF;
     font-family: 'Amatic SC', cursive;
+    background: url("../image/ShowAlpaca.png") #d1b2ff center;
 }
 
 header {
@@ -126,6 +126,10 @@ header {
     flex-flow: row wrap;
     justify-content: space-around;
     align-content: space-around;
+    background: #e4f7ba;
+    padding: 10px;
+    border: 5px solid #584A23;
+    border-radius: 5px;
 }
 
 /* Mobile */
