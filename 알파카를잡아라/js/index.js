@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * 알파카 스펙에 대한 객체
  */
@@ -14,7 +16,8 @@ Object.freeze(ALPACA);
  */
 const GameSet = {
     TIME_INTERVAL: 1500,
-    SHOW_ALPACA: 1000
+    SHOW_ALPACA: 1000,
+    PLAY_TIME: 60
 }
 Object.freeze(GameSet);
 
@@ -42,8 +45,7 @@ const makeAlpaca = (level) => {
             element.style.width = `${ALPACA.width}px`;
             element.style.height = `${ALPACA.height}px`;
             element.style.background = `url("${ALPACA.hide}") no-repeat`;
-            console.log("===========")
-            console.log(element);
+            element.style.cursor = `pointer`;
 
             // 알파카를 div#map에 배치한다.
             document.getElementById("map").appendChild(element);
@@ -90,7 +92,7 @@ const alpacaRandomShow = (alpacas) => {
 window.onload = () => {
     // 알파카 생성
     const alpacas = makeAlpaca(3);
-    var timer = setInterval(() => {
+    const timer = setInterval(() => {
         alpacaRandomShow(alpacas);
     }, GameSet.TIME_INTERVAL) ;
 };
