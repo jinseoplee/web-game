@@ -8,7 +8,7 @@ const ALPACA = {
     height: 150,
     show: "./image/ShowAlpaca.png",
     hide: "./image/HideAlpaca.png",
-    
+
     whiteAlpaca: "./image/ShowAlpaca.png",
     angryAlpaca: "./image/AngryAlpaca.png",
     fence: "./image/HideAlpaca.png"
@@ -34,7 +34,7 @@ const GameUI = {
         }
     }
 };
-Object.freeze(Game);
+Object.freeze(GameUI);
 
 
 /**

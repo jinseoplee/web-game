@@ -19,7 +19,7 @@ header {
 
 .panel {
     background: #C98AFF;
-    padding: 15px 20px;
+    padding: 15px 0;
     box-shadow: 0 1px 1px 0 #484848;
     display: flex;
     flex-flow: row wrap;
@@ -31,7 +31,7 @@ header {
 */
 .panel__btn {
     padding: 10px 15px;
-    margin: 0 5px;
+    margin: 0 2px;
     display: inline-block;
     position: relative;
     background: #62c15b;
