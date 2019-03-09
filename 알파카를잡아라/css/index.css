@@ -31,12 +31,12 @@ header {
 */
 .panel__btn {
     padding: 10px 15px;
-    margin: 0 10px;
+    margin: 0 5px;
     display: inline-block;
     position: relative;
-    background: #bdbdbd;
+    background: #62c15b;
     color: #000;
-    box-shadow: 0 6px #5d5d5d;
+    box-shadow: 0 6px #3e9d37;
     border-radius: 5px;
     cursor: pointer;
     font-size: 17px;
@@ -75,15 +75,27 @@ header {
 }
 
 /*
-게임 시작 버튼
+게임 시작 버튼, 게임 종료 버튼
 */
-.panel__btn--forStart {
+.panel__btn--forStart, .panel__btn--forEnd {
     border: none;
     outline: none;
     font-family: inherit;
 }
 
-.panel__btn--forStart:active {
+/*
+게임 종료 버튼
+*/
+.panel__btn--forEnd {
+    background: #f15f5f;
+    box-shadow: 0 6px #980000;
+}
+
+.panel__btn--forEnd:hover {
+    box-shadow: 0 4px #980000;
+}
+
+.panel__btn--forStart:active, .panel__btn--forEnd:active {
     box-shadow: none;
     top: 6px;
 }
@@ -134,6 +146,9 @@ header {
 
 /* Mobile */
 @media all and (max-width:528px) {
+    .headerTitle {
+        padding: 10px 0;
+    }
     .pannel__status {
         margin-top: 10px;
     }
