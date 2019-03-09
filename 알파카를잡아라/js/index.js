@@ -6,12 +6,18 @@
 const ALPACA = {
     width: 150,
     height: 150,
-    show: "./image/ShowAlpaca.png",
-    hide: "./image/HideAlpaca.png",
-
-    whiteAlpaca: "./image/ShowAlpaca.png",
-    angryAlpaca: "./image/AngryAlpaca.png",
-    fence: "./image/HideAlpaca.png"
+    fence: {
+        code: 0,
+        image: "./image/Fence.png"
+    },
+    whiteAlpaca: {
+        code: 1,
+        image: "./image/WhiteAlpaca.png"
+    },
+    angryAlpaca: {
+        code: 2,
+        image: "./image/AngryAlpaca.png"
+    }
 };
 Object.freeze(ALPACA);
 
@@ -43,23 +49,23 @@ Object.freeze(GameUI);
  */
 const setGameByLevel = (level) => {
 
-    let TIME_INTERVAL = 1500;       // 알파카가 [TIME_INTERVAL]초에 한마리씩 등장
-    let PLAY_TIME = 60;             // 플레이 타임
-    let SHOW_ALPACA = 1200;         // 알파카가 나온 상태에서 [SHOW_ALPACA]초뒤에 사라짐
-    let LEVEL = level;              // 1: EASY, 2: MEDIUM, 3: HARD
-    let ALPACA_COUNT = 1;           // 매 턴 등장할 수 있는 최대 알파카 수
-    let ANGRY_ALPACA_COUNT = 0;     // 매 턴 등장할 수 있는 최대 화난 알파카 수
-    let GOTCHA_ALPACA = 100;        // 알파카를 잡을시 점수
-    let GOTCHA_ANGRY_ALPACA = -300; // 화난 알파카를 잡을시 패널티
-    let GOTCHA_FENCE = -100;        // 일반 울타리를 잡을시 패널티
+    let TIME_INTERVAL;          // 알파카가 [TIME_INTERVAL]초에 한마리씩 등장
+    let PLAY_TIME;              // 플레이 타임
+    let SHOW_ALPACA;            // 알파카가 나온 상태에서 [SHOW_ALPACA]초뒤에 사라짐
+    let LEVEL = level;          // 1: EASY, 2: MEDIUM, 3: HARD
+    let MAX_WHITE_ALPACA_COUNT; // 매 턴 등장할 수 있는 최대 알파카 수
+    let MAX_ANGRY_ALPACA_COUNT; // 매 턴 등장할 수 있는 최대 화난 알파카 수
+    let GOTCHA_ALPACA;          // 알파카를 잡을시 점수
+    let GOTCHA_ANGRY_ALPACA;    // 화난 알파카를 잡을시 패널티
+    let GOTCHA_FENCE;           // 일반 울타리를 잡을시 패널티
 
     switch (level) {
         case "1" :    // easy
             TIME_INTERVAL = 1500;
             PLAY_TIME = 60;
             SHOW_ALPACA = 1200;
-            ALPACA_COUNT = 1;
-            ANGRY_ALPACA_COUNT = 0;
+            MAX_WHITE_ALPACA_COUNT = 1;
+            MAX_ANGRY_ALPACA_COUNT = 3;
             GOTCHA_ALPACA = 100;
             GOTCHA_ANGRY_ALPACA = 0;
             GOTCHA_FENCE = 0;
@@ -68,29 +74,29 @@ const setGameByLevel = (level) => {
             TIME_INTERVAL = 1500;
             PLAY_TIME = 60;
             SHOW_ALPACA = 1000;
-            ALPACA_COUNT = 2;
-            ANGRY_ALPACA_COUNT = 1;
-            GOTCHA_ALPACA = 150;
-            GOTCHA_ANGRY_ALPACA = 0;
+            MAX_WHITE_ALPACA_COUNT = 2;
+            MAX_ANGRY_ALPACA_COUNT = 4;
+            GOTCHA_ALPACA = 100;
+            GOTCHA_ANGRY_ALPACA = -50;
             GOTCHA_FENCE = 0;
             break;
         default :   // hard
             TIME_INTERVAL = 1500;
             PLAY_TIME = 60;
             SHOW_ALPACA = 800;
-            ALPACA_COUNT = 3;
-            ANGRY_ALPACA_COUNT = 2;
-            GOTCHA_ALPACA = 200;
-            GOTCHA_ANGRY_ALPACA = 0;
-            GOTCHA_FENCE = 0;
+            MAX_WHITE_ALPACA_COUNT = 3;
+            MAX_ANGRY_ALPACA_COUNT = 5;
+            GOTCHA_ALPACA = 100;
+            GOTCHA_ANGRY_ALPACA = -100;
+            GOTCHA_FENCE = -50;
     }
 
     return {
         TIME_INTERVAL,
         PLAY_TIME,
         SHOW_ALPACA,
-        ALPACA_COUNT,
-        ANGRY_ALPACA_COUNT,
+        MAX_WHITE_ALPACA_COUNT,
+        MAX_ANGRY_ALPACA_COUNT,
         LEVEL,
         GOTCHA_ALPACA,
         GOTCHA_ANGRY_ALPACA,
@@ -140,14 +146,14 @@ const makeAlpaca = (gameSetting) => {
             const element = document.createElement("div");
             element.style.width = `${ALPACA.width}px`;
             element.style.height = `${ALPACA.height}px`;
-            element.style.background = `url("${ALPACA.hide}") no-repeat`;
+            element.style.background = `url("${ALPACA.fence.image}") no-repeat`;
             element.style.cursor = `pointer`;
 
             // 알파카를 div#map에 배치한다.
             GameUI.map.appendChild(element);
 
             alpacaMap.set(element, {
-                row, col, isShow: false
+                row, col, what: ALPACA.fence.code
             });
 
             // 알파카 클릭 이벤트 생성
@@ -155,9 +161,9 @@ const makeAlpaca = (gameSetting) => {
                 const element = e.currentTarget;
                 const alpaca = alpacaMap.get(element);
 
-                if(alpaca.isShow) {
-                    element.style.background = `url("${ALPACA.hide}") no-repeat`;
-                    alpaca.isShow = false;
+                if(alpaca.what !== ALPACA.fence.code) {
+                    element.style.background = `url("${ALPACA.fence.image}") no-repeat`;
+                    alpaca.what = ALPACA.fence.code;
 
                     // 점수 추가
                     controlScore(500);
@@ -176,14 +182,53 @@ const makeAlpaca = (gameSetting) => {
 const showAlpacaRandomly = (alpacas, gameSetting) => {
     const elements = alpacas.keys();
     const elementsArr = Array.from(elements);
-    const who = Math.floor(Math.random() * alpacas.size);
+
+    // 알파카를 몇마리나 뽑을까?(최소 1마리 이상)
+    const whiteAlpacaCount = Math.floor(Math.random() * gameSetting.MAX_WHITE_ALPACA_COUNT) + 1;
     
-    elementsArr[who].style.background = `url(${ALPACA.show}) no-repeat`;
-    alpacas.get(elementsArr[who]).isShow = true;
+    // 화난 알파카를 몇마리나 뽑을까?(최소 0마리 이상)
+    const angryAlpacaCount = Math.floor(Math.random() * gameSetting.MAX_ANGRY_ALPACA_COUNT);
     
+    // 필요한 난수 : 알파카 수 + 화난 알파카 수
+    const totalRandomCount = whiteAlpacaCount + angryAlpacaCount;
+
+    // 알파카 인덱스 배열 & 화난 알파카 인덱스 배열 : 이 배열을 이용해서 화면에 알파카와 화난 알파카를 보여줌
+    const whiteAlpacaArr = [];
+    const angryAlpacaArr = [];
+
+    // 알파카 수 + 화난 알파카 수 만큼의 중복없는 난수를 만들고 whiteAlpacaArr에 담는다.
+    // 그리고 화난 알파카 수 만큼 whiteAlpacaArr의 요소를 angryAlpacaArr로 옮긴다.
+    for (let i = 0; i < totalRandomCount;) {
+        const randomNumber = Math.floor(Math.random() * alpacas.size);
+        if (whiteAlpacaArr.indexOf(randomNumber) < 0) {
+            i++;
+            whiteAlpacaArr.push(randomNumber);
+        }
+    }
+
+    for (let i = 0; i < angryAlpacaCount; i++) {
+        const randomIndex = Math.floor(Math.random() * whiteAlpacaArr.length);
+        angryAlpacaArr.push(whiteAlpacaArr[randomIndex]);
+        whiteAlpacaArr.splice(randomIndex, 1);
+    }
+
+    // 알파카 엘리먼트 스타일 정의
+    whiteAlpacaArr.forEach(idx => {
+        elementsArr[idx].style.background = `url(${ALPACA.whiteAlpaca.image}) no-repeat`;
+        alpacas.get(elementsArr[idx]).what = ALPACA.whiteAlpaca.code;
+    });
+
+    // 화난 알파카 엘리먼트 스타일 정의
+    angryAlpacaArr.forEach(idx => {
+        elementsArr[idx].style.background = `url(${ALPACA.angryAlpaca.image}) no-repeat`;
+        alpacas.get(elementsArr[idx]).what = ALPACA.angryAlpaca.code;
+    });
+
     setTimeout(() => {
-        elementsArr[who].style.background = `url(${ALPACA.hide}) no-repeat`;
-        alpacas.get(elementsArr[who]).isShow = false;
+        whiteAlpacaArr.concat(angryAlpacaArr).map(value => {
+            elementsArr[value].style.background = `url(${ALPACA.fence.image}) no-repeat`;
+            alpacas.get(elementsArr[value]).what = ALPACA.fence.code;
+        });
     }, gameSetting.SHOW_ALPACA);
 };
 
@@ -206,15 +251,37 @@ const makeMessageElement = (message) => {
  */
 const initPanel = () => {
 
+    /**
+     * 게임 종료 프로세스 함수
+     */
+    const endGame = () => {
+
+        // 인터벌 모두 제거
+        clearInterval(alpacaInterval);
+        clearInterval(gameCountdown);
+        alpacaInterval = null;
+        gameCountdown = null;
+
+        // 게임 맵 초기화 후 게임 오버 메세지와 스코어 점수 게시
+        clearChildren(GameUI.map);
+        GameUI.map.appendChild(makeMessageElement(GameUI.message.RESULT_MESSAGE(GameUI.panel.score.innerHTML)));
+    }
+
     // 게임 시작 초기 메세지
     GameUI.map.appendChild(makeMessageElement(GameUI.message.INITIAL_MESSAGE));
 
     // 알파카 등장 인터벌 및 게임 진행시간 카운트 변수
-    let alpacaInterval = undefined;
-    let gameCountdown = undefined;
+    let alpacaInterval = null;
+    let gameCountdown = null;
 
     // 게임 시작 버튼
     GameUI.panel.start.addEventListener("click", () => {
+
+        // 게임이 실행중인 상태(alpacaInterval, gameCountdown != null)
+        // 이면 시작버튼 클릭시 return; 중복 시작 방지
+        if (alpacaInterval && gameCountdown) {
+            return;
+        }
 
         // 게임 난이도별 세팅 구하기
         let level = document.querySelector("input[name=step]:checked").value;
@@ -239,26 +306,14 @@ const initPanel = () => {
             
             // 카운트 다운이 끝나면 알파카 Interval과 게임 타이머 clear
             if (s < 1) {
-                clearInterval(alpacaInterval);
-                clearInterval(gameCountdown);
-                
-                // 게임 맵 초기화 후 게임 오버 메세지와 스코어 점수 게시
-                clearChildren(GameUI.map);
-                GameUI.map.appendChild(makeMessageElement(GameUI.message.RESULT_MESSAGE(GameUI.panel.score.innerHTML)));
+                endGame();
             }
         }, 1000);
     });
 
     // 게임 종료 버튼
     GameUI.panel.end.addEventListener("click", () => {
-
-        // 인터벌 모두 제거
-        clearInterval(alpacaInterval);
-        clearInterval(gameCountdown);
-
-        // 게임 맵 초기화 후 게임 오버 메세지와 스코어 점수 게시
-        clearChildren(GameUI.map);
-        GameUI.map.appendChild(makeMessageElement(GameUI.message.RESULT_MESSAGE(GameUI.panel.score.innerHTML)));
+        endGame();
     });
 };
 
