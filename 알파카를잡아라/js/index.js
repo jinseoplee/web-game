@@ -76,7 +76,7 @@ const setGameByLevel = (level) => {
             SHOW_ALPACA = 1000;
             MAX_WHITE_ALPACA_COUNT = 2;
             MAX_ANGRY_ALPACA_COUNT = 4;
-            GOTCHA_ALPACA = 100;
+            GOTCHA_ALPACA = 150;
             GOTCHA_ANGRY_ALPACA = -50;
             GOTCHA_FENCE = 0;
             break;
@@ -86,7 +86,7 @@ const setGameByLevel = (level) => {
             SHOW_ALPACA = 800;
             MAX_WHITE_ALPACA_COUNT = 3;
             MAX_ANGRY_ALPACA_COUNT = 5;
-            GOTCHA_ALPACA = 100;
+            GOTCHA_ALPACA = 200;
             GOTCHA_ANGRY_ALPACA = -100;
             GOTCHA_FENCE = -50;
     }
@@ -147,6 +147,7 @@ const makeAlpaca = (gameSetting) => {
             element.style.width = `${ALPACA.width}px`;
             element.style.height = `${ALPACA.height}px`;
             element.style.background = `url("${ALPACA.fence.image}") no-repeat`;
+            element.style.backgroundSize = "100%";
             element.style.cursor = `pointer`;
 
             // 알파카를 div#map에 배치한다.
@@ -160,13 +161,26 @@ const makeAlpaca = (gameSetting) => {
             element.addEventListener("click", (e) => {
                 const element = e.currentTarget;
                 const alpaca = alpacaMap.get(element);
+                let score;
+
+                switch (alpaca.what) {
+                    case 0 :
+                        score = gameSetting.GOTCHA_FENCE;
+                        break;
+                    case 1 : 
+                        score = gameSetting.GOTCHA_ALPACA;
+                        break;
+                    case 2 :
+                        score = gameSetting.GOTCHA_ANGRY_ALPACA;
+                        break;
+                }
+
+                // 점수 추가
+                controlScore(score);
 
                 if(alpaca.what !== ALPACA.fence.code) {
                     element.style.background = `url("${ALPACA.fence.image}") no-repeat`;
                     alpaca.what = ALPACA.fence.code;
-
-                    // 점수 추가
-                    controlScore(500);
                 }
             });
         }
@@ -225,9 +239,9 @@ const showAlpacaRandomly = (alpacas, gameSetting) => {
     });
 
     setTimeout(() => {
-        whiteAlpacaArr.concat(angryAlpacaArr).map(value => {
-            elementsArr[value].style.background = `url(${ALPACA.fence.image}) no-repeat`;
-            alpacas.get(elementsArr[value]).what = ALPACA.fence.code;
+        whiteAlpacaArr.concat(angryAlpacaArr).map(idx => {
+            elementsArr[idx].style.background = `url(${ALPACA.fence.image}) no-repeat`;
+            alpacas.get(elementsArr[idx]).what = ALPACA.fence.code;
         });
     }, gameSetting.SHOW_ALPACA);
 };
