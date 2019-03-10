@@ -67,7 +67,7 @@ const setGameByLevel = (level) => {
             MAX_WHITE_ALPACA_COUNT = 1;
             MAX_ANGRY_ALPACA_COUNT = 3;
             GOTCHA_ALPACA = 100;
-            GOTCHA_ANGRY_ALPACA = 0;
+            GOTCHA_ANGRY_ALPACA = -100;
             GOTCHA_FENCE = 0;
             break;
         case "2" :    // medium
@@ -76,9 +76,9 @@ const setGameByLevel = (level) => {
             SHOW_ALPACA = 1000;
             MAX_WHITE_ALPACA_COUNT = 2;
             MAX_ANGRY_ALPACA_COUNT = 4;
-            GOTCHA_ALPACA = 150;
-            GOTCHA_ANGRY_ALPACA = -50;
-            GOTCHA_FENCE = 0;
+            GOTCHA_ALPACA = 100;
+            GOTCHA_ANGRY_ALPACA = -150;
+            GOTCHA_FENCE = -50;
             break;
         default :   // hard
             TIME_INTERVAL = 1500;
@@ -86,9 +86,9 @@ const setGameByLevel = (level) => {
             SHOW_ALPACA = 800;
             MAX_WHITE_ALPACA_COUNT = 3;
             MAX_ANGRY_ALPACA_COUNT = 5;
-            GOTCHA_ALPACA = 200;
-            GOTCHA_ANGRY_ALPACA = -100;
-            GOTCHA_FENCE = -50;
+            GOTCHA_ALPACA = 100;
+            GOTCHA_ANGRY_ALPACA = -200;
+            GOTCHA_FENCE = -100;
     }
 
     return {
