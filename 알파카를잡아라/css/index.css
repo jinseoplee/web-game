@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Amatic SC', cursive;
-    background: url("../image/WhiteAlpaca.png") #d1b2ff center;
+    background: url("../image/WhiteAlpaca.png") #d1b2ff;
 }
 
 header {
@@ -142,6 +142,14 @@ header {
     padding: 10px;
     border: 5px solid #584A23;
     border-radius: 5px;
+}
+
+/* Guide message style */
+.message {
+    font-size: 40px;
+    font-weight: 700;
+    padding: 80px 0;
+    text-align: center;
 }
 
 /* Mobile */
