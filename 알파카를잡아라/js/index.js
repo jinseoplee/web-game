@@ -253,10 +253,7 @@ const showAlpacaRandomly = (alpacas, gameSetting) => {
 const makeMessageElement = (message) => {
     const element = document.createElement("p");
     element.innerText = message;
-    element.style.fontSize = "40px";
-    element.style.fontWeight = 700;
-    element.style.padding = "80px 0";
-    element.style.textAlign = "center";
+    element.className = "message";
     return element;
 };
 
@@ -280,9 +277,6 @@ const initPanel = () => {
         clearChildren(GameUI.map);
         GameUI.map.appendChild(makeMessageElement(GameUI.message.RESULT_MESSAGE(GameUI.panel.score.innerHTML)));
     }
-
-    // 게임 시작 초기 메세지
-    GameUI.map.appendChild(makeMessageElement(GameUI.message.INITIAL_MESSAGE));
 
     // 알파카 등장 인터벌 및 게임 진행시간 카운트 변수
     let alpacaInterval = null;
