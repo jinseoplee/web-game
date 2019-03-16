@@ -1,1 +1,24 @@
 @import url("reset.css");
+
+.title {
+    padding: 15px 0;
+    width: 100%;
+    text-align: center;
+    background-color: #f7ea62;
+}
+
+.map {
+    position: relative;
+}
+
+.map canvas {
+    position: absolute;
+    background-color: transparent;
+}
+
+.status {
+    position: absolute;
+    top: 602px;
+    text-align: left;
+    font-size: 0.7em;
+}
