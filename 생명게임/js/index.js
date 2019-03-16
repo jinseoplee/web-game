@@ -27,11 +27,7 @@ const readFile = (filename, filetype, callback) => {
 };
 
 window.onload = (e) => {
-    readFile("https://jinseoplee.github.io/web-game/생명게임/patterns.json", "json", (response, error) => {
-        if (!error) {
-            console.log("!!");
-        }
-    });
+    document.write(JSON.stringify(getPatterns()));
 };
 
 // 1. json 파일 가져와서 state에 등록
