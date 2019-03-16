@@ -27,7 +27,7 @@ const readFile = (filename, filetype, callback) => {
 };
 
 window.onload = (e) => {
-    readFile("../res/json/patterns.json", "json", (response, error) => {
+    readFile("./patterns.json", "json", (response, error) => {
         if (!error) {
             console.log("!!");
         }
