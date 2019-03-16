@@ -160,7 +160,7 @@ state.updateCell = (row, col, life) => {
 state.clearAllCell = () => {
     for (let i = 0; i < state.row; i++) {
         for (let j = 0; j < state.col; j++) {
-            state.updateCell(row, col, 0);
+            state.updateCell(i, j, 0);
         }
     }
 
@@ -293,11 +293,100 @@ view.setGeneration = (generation) => {
 
 
 const controller = {};
+
+/**
+ * 패턴 선택
+ */
+controller.selectPattern = (state) => {
+    
+    const placePattern = (pattern) => {
+        const arr = pattern.points;
+        const max = [0, 0];
+        const min = [state.row - 1, state.col - 1];
+
+        // 패턴을 map의 한 가운데 그리기 위해서 패턴의 영역중 가장 작은 좌표 큰 좌표를 이용한다
+        for (let i = 0; i < arr.length; i++) {
+            for (let d = 0; d < 2; d++) {
+                if (arr[i][d] > max[d]) max[d] = arr[i][d];
+                if (arr[i][d] < min[d]) min[d] = arr[i][d];
+            }
+        }
+
+        // 모든 cell 제거
+        state.clearAllCell();
+        for (let i = 0; i < arr.length; i++) {
+            const ix = arr[i][0] + Math.floor((state.col - min[0] - max[0]) / 2);
+            const iy = arr[i][1] + Math.floor((state.row - min[1] - max[1]) / 2);
+            state.updateCell(ix, iy, 1);
+        }
+        state.signalGenerationChange(state.generation = 1);
+    };
+
+    const select = makeElement("select");
+    select.appendChild(makeElement("option", null, "choice pattern"));
+    for (let i = 0; i < state.patterns.length; i++) {
+        const patternName = state.patterns[i].name;
+        select.appendChild(makeElement("option", {value:patternName}, patternName));
+    }
+    select.selectedIndex = 0;
+    select.addEventListener("change", (e) => {
+        if (state.isPlaying) {
+            clearInterval(state.timer);
+            state.isPlaying = false;
+        }
+        if (select.selectedIndex !== 0) {
+            placePattern(state.patterns[select.selectedIndex - 1]);
+        }
+    });
+    return select;
+};
+
+/**
+ * 속도 설정
+ */
+controller.selectLoopInterval = (state) => {
+    const select = makeElement("select");
+    const options = [
+        {name: "20ms", value: 20},
+        {name: "100ms", value: 100},
+        {name: "300ms", value: 300},
+        {name: "600ms", value: 500}
+    ];
+    for (let i = 0; i < options.length; i++) {
+        const option = makeElement("option", {value: options[i].value}, options[i].name);
+        select.appendChild(option);
+    }
+    select.selectedIndex = 2;
+    select.addEventListener("change", (e) => {
+        state.timeInterval = select.value;
+        if (state.isPlaying) {
+            clearInterval(state.timer);
+            state.timer = setInterval(state.updateAllCell, state.timeInterval);
+        }
+    });
+    return select;
+};
+
+/**
+ * 모두 삭제
+ */
+controller.clear = (state) => {
+    const button = makeElement("button", {type:"button"}, "clear");
+    button.addEventListener("click", (e) => {
+        if (state.isPlaying) {
+            clearInterval(state.timer);
+            state.isPlaying = false;
+        }
+        state.clearAllCell();
+    });
+    return button;
+};
+
 /**
  * 자동 진행
  */
-controller.loopPlay = (state) => {
-    const button = makeElement("button", {type:"button"}, "loop");
+controller.infiniteLoopPlay = (state) => {
+    const button = makeElement("button", {type:"button"}, "infinite loop");
     button.addEventListener("click", (e) => {
         if (!state.isPlaying) {
             state.timer = setInterval(state.updateAllCell, state.timeInterval);
@@ -374,13 +463,15 @@ const initializeLifeGame = (parent, row, col, width, height) => {
         controllbar.appendChild(controller[name](state));
     }
 
+    const header = makeElement("header", null, title, controllbar);
+
     // Life Game map
     const map = view.initialize(row, col, width, height);
     
     // state 초기화
     state.initialize(row, col);
 
-    parent.appendChild(makeElement("div", null, title, controllbar, map));
+    parent.appendChild(makeElement("div", {class:"wrap"}, header, map));
 };
 
 window.onload = () => {
@@ -393,7 +484,7 @@ window.onload = () => {
 //      - readFILE 함수 이용
 // 2. initializeLifeGame 생성
 // 3. state 객체 정의
-//      - create
+//      - initialize
 //      - signalCellChange
 //      - signalGenerationChange
 //      - getSumAround
@@ -401,17 +492,17 @@ window.onload = () => {
 //      - updateCell
 //      - clearAllCell
 // 4. view 객체 정의
-//      - create
+//      - initialize
 //      - drawMap
 //      - drawCell
-//      - updateGeneration
+//      - setGeneration
 // 5. controller 객체 정의
-//      - changeMapColor(맵 색상 변경)
-//      - chabgeCellColor(세포 색상 변경)
-//      - changePattern(패턴 선택)
+//      - selectMapColor(맵 색상 변경)
+//      - selectCellColor(세포 색상 변경)
+//      - selectPattern(패턴 선택)
 //      - createRandomPattern(랜덤 생성)
-//      - changeGameSpeed(속도 설정)
-//      - playInfinite(연속 재생)
-//      - playByStep(다음)
+//      - selectLoopInterval(속도 설정)
+//      - infiniteLoopPlay(자동 재생)
+//      - stepPlay(단계별 진행)
 //      - stop(정지)
 //      - clearMap(모두 삭제)

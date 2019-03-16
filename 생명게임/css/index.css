@@ -1,24 +1,43 @@
 @import url("reset.css");
+body {
+    background-color: #faf4c0
+}
+
+header {
+    text-align: center;
+    margin-bottom: 10px;
+}
 
 .title {
     padding: 15px 0;
     width: 100%;
     text-align: center;
-    background-color: #f7ea62;
+    font-weight: 700;
+    background-color: #e5d85c;
+}
+
+.controller {
+    padding: 10px 0;
+    background-color: #faed7d;
+    box-shadow: 0 1px 1px 0 #bdbdbd;
 }
 
 .map {
     position: relative;
+    width: 780px;
+    height: 600px;
+    margin: 0 auto;
 }
 
 .map canvas {
     position: absolute;
     background-color: transparent;
+    border: 5px solid #997000;
 }
 
 .status {
     position: absolute;
-    top: 602px;
+    top: 617px;
     text-align: left;
     font-size: 0.7em;
 }
