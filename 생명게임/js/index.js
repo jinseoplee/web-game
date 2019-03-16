@@ -27,7 +27,7 @@ const controller = {};
 // };
 
 window.onload = () => {
-    document.write(JSON.stringify(getPatterns()));
+    //document.write(JSON.stringify(getPatterns()));
 };
 
 // 1. json 파일 가져와서 state에 등록
