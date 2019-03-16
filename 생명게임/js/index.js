@@ -10,23 +10,23 @@ const controller = {};
  * @param {*} filetype 읽어올 파일 확장자
  * @param {*} callback 파일을 모두 읽은 뒤 호출할 callback 함수
  */
-const readFile = (filename, filetype, callback) => {
-    const req = new XMLHttpRequest();
-    req.addEventListener("readystatechange", () => {
-        if (req.readyState === 4) {
-            if (req.status === 200) {
-                callback(req.response, false);
-            } else {
-                callback(null, true);
-            }
-        }
-    });
-    req.open("GET", filename);
-    req.responseType = filetype;
-    req.send();
-};
+// const readFile = (filename, filetype, callback) => {
+//     const req = new XMLHttpRequest();
+//     req.addEventListener("readystatechange", () => {
+//         if (req.readyState === 4) {
+//             if (req.status === 200) {
+//                 callback(req.response, false);
+//             } else {
+//                 callback(null, true);
+//             }
+//         }
+//     });
+//     req.open("GET", filename);
+//     req.responseType = filetype;
+//     req.send();
+// };
 
-window.onload = (e) => {
+window.onload = () => {
     document.write(JSON.stringify(getPatterns()));
 };
 
