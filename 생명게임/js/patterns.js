@@ -1,5 +1,4 @@
 const getPatterns = () => {
-    console.log("!!!");
     return [
         {
             "name": "star",
