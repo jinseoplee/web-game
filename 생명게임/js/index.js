@@ -27,7 +27,7 @@ const readFile = (filename, filetype, callback) => {
 };
 
 window.onload = (e) => {
-    readFile("./patterns.json", "json", (response, error) => {
+    readFile("https://jinseoplee.github.io/web-game/생명게임/patterns.json", "json", (response, error) => {
         if (!error) {
             console.log("!!");
         }
