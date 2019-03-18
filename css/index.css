@@ -36,7 +36,6 @@ header {
 .card {
     display: block;
     width: 32%;
-    height: 206px;
     min-width: 300px;
     margin-right: 2%;
     margin-bottom: 10px;
@@ -59,7 +58,6 @@ header {
 .card__header iframe {
     vertical-align: bottom;
     width: 100%;
-    height: 150px;
     pointer-events: none;
     overflow: hidden;
     border: none;
