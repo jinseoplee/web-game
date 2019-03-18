@@ -41,7 +41,8 @@ header {
     margin-bottom: 10px;
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
-    border-radius: 10px;
+    border-radius: 1170px;
+    border: 3px solid blue;
     overflow: hidden;
 }
 
@@ -58,7 +59,6 @@ header {
 .card__header {
     position: relative;
     padding: 19%;
-    background: #fff;
 }
 
 .card__header iframe {
