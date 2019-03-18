@@ -34,15 +34,13 @@ header {
 }
 
 .card {
-    position: relative;
     width: 32%;
     min-width: 300px;
     margin-right: 2%;
     margin-bottom: 10px;
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
-    border-radius: 1170px;
-    border: 3px solid blue;
+    border-radius: 20px;
     overflow: hidden;
 }
 
@@ -57,22 +55,21 @@ header {
 }
 
 .card__header {
-    position: relative;
     padding: 19%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.card__header iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;;
-    pointer-events: none;
-    border: none;
+.card__header--game01 {
+    background-image: url(../image/YouCantTouchAlpaca.png);
+}
+
+.card__header--game02 {
+    background-image: url(../image/LifeGame.png);
 }
 
 .card__body {
-    position: relative;
     background-color: #2d303a;
 }
 
@@ -84,6 +81,10 @@ header {
 @media all and (max-width: 968px) {
     .card {
         width: 49%;
+    }
+
+    .card:nth-child(n) {
+        margin-right: 2%;
     }
 
     .card:nth-child(2n) {
@@ -99,34 +100,4 @@ header {
     .card:nth-child(n) {
         margin-right: 0;
     }
-}
-
-.parent {
-    position: relative;
-    width: 300px;
-    background-color: #4641D9;
-    border-radius: 30px;
-    border: 3px solid blue;
-    margin: 30px;
-    overflow: hidden;
-}
-
-.child1 {
-    width: 100%;
-    height: 150px;
-    background-color: yellow;
-}
-
-.child1 iframe {
-    pointer-events: none;
-}
-
-.child2 {
-    width: 100%;
-    background: #CC3D3D;
-    z-index: 3;
-}
-
-.child2 p {
-    padding: 20px 0;
 }
