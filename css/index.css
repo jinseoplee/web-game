@@ -55,10 +55,47 @@ header {
 }
 
 .card__header {
+    position: relative;
     padding: 19%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.card__gameLink {
+    position: absolute;
+    display: block;
+    background: #2d303a;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    text-align: center;
+    text-decoration: none;
+    padding: 15% 0;
+}
+
+.card__gameLink span {
+    color: #fff;
+    font-size: 1.5em;
+}
+
+.card__gameLink .hrSmall {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    height: 2px;
+    background: -webkit-linear-gradient(70deg,#CC3D3D,#9FC93C,#4641D9,#D9418C);
+    background: -moz-linear-gradient(70deg,#CC3D3D,#9FC93C,#4641D9,#D9418C);
+    background: -o-linear-gradient(70deg,#CC3D3D,#9FC93C,#4641D9,#D9418C);
+    background: linear-gradient(70deg,#CC3D3D,#9FC93C,#4641D9,#D9418C);
+}
+
+.card__gameLink:hover {
+    opacity: 0.95;
 }
 
 .card__header--game01 {
