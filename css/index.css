@@ -34,6 +34,7 @@ header {
 }
 
 .card {
+    position: relative;
     width: 32%;
     min-width: 300px;
     margin-right: 2%;
