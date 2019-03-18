@@ -102,6 +102,7 @@ header {
 }
 
 .parent {
+    position: relative;
     width: 300px;
     background-color: #4641D9;
     border-radius: 30px;
