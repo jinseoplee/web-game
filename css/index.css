@@ -59,6 +59,7 @@ header {
 .card__header {
     position: relative;
     padding: 19%;
+    z-index: 1;
 }
 
 .card__header iframe {
@@ -74,6 +75,7 @@ header {
 .card__body {
     position: relative;
     background-color: #2d303a;
+    z-index: 1;
 }
 
 .card__description {
