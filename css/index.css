@@ -30,6 +30,9 @@ header {
     margin: 30px auto;
     padding: 0 15px;
     display: flex;
+    -ms-flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    -moz-flex-flow: row wrap;
     flex-flow: row wrap;
 }
 
