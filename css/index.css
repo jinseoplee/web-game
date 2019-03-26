@@ -29,6 +29,7 @@ header {
     max-width: 1200px;
     margin: 30px auto;
     padding: 0 15px;
+    display: -ms-flexbox;
     display: flex;
     -ms-flex-flow: row wrap;
     -webkit-flex-flow: row wrap;
