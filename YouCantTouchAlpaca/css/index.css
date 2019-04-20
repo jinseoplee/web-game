@@ -1,163 +1,163 @@
 @import url("reset.css");
 
 body {
-    font-family: 'Amatic SC', cursive;
-    background: url("../image/WhiteAlpaca.png") #d1b2ff;
+  font-family: 'Amatic SC', cursive;
+  background: url("../image/WhiteAlpaca.png") #d1b2ff;
 }
 
 header {
-    background: #A566FF;
-    text-align: center;
-    font-size: 25px;
-    font-weight: 700;
-    margin-bottom: 20px;
+  background: #A566FF;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
 
 .headerTitle {
-    padding: 25px 0;
+  padding: 25px 0;
 }
 
 .panel {
-    background: #C98AFF;
-    padding: 15px 0;
-    box-shadow: 0 1px 1px 0 #484848;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
+  background: #C98AFF;
+  padding: 15px 0;
+  box-shadow: 0 1px 1px 0 #484848;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
 
 /*
 게임 설정 영역 버튼
 */
 .panel__btn {
-    padding: 10px 15px;
-    margin: 0 2px;
-    display: inline-block;
-    position: relative;
-    background: #62c15b;
-    color: #000;
-    box-shadow: 0 6px #3e9d37;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 17px;
-    font-weight: 700;
+  padding: 10px 15px;
+  margin: 0 2px;
+  display: inline-block;
+  position: relative;
+  background: #62c15b;
+  color: #000;
+  box-shadow: 0 6px #3e9d37;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .panel__btn:hover {
-    box-shadow: 0 4px #5d5d5d;
-    top: 2px;
+  box-shadow: 0 4px #5d5d5d;
+  top: 2px;
 }
 
 /*
 게임 난이도 설정 버튼
 */
 .panel__gameSteps {
-    display: inline-block;
+  display: inline-block;
 }
 
 .panel__gameSteps input[type=radio] {
-    display:none;
+  display:none;
 }
 
 .panel__btn--forStep {
-    background: #ffb2f5;
-    box-shadow: 0 6px #a5589b;
-    padding: 13px 15px;
+  background: #ffb2f5;
+  box-shadow: 0 6px #a5589b;
+  padding: 13px 15px;
 }
 
 .panel__btn--forStep:hover {
-    box-shadow: 0 4px #a5589b;
+  box-shadow: 0 4px #a5589b;
 }
 
 .panel__gameSteps input[type=radio]:checked + .panel__btn--forStep {
-    box-shadow: none;
-    top: 6px;
+  box-shadow: none;
+  top: 6px;
 }
 
 /*
 게임 시작 버튼, 게임 종료 버튼
 */
 .panel__btn--forStart, .panel__btn--forEnd {
-    border: none;
-    outline: none;
-    font-family: inherit;
+  border: none;
+  outline: none;
+  font-family: inherit;
 }
 
 /*
 게임 종료 버튼
 */
 .panel__btn--forEnd {
-    background: #f15f5f;
-    box-shadow: 0 6px #980000;
+  background: #f15f5f;
+  box-shadow: 0 6px #980000;
 }
 
 .panel__btn--forEnd:hover {
-    box-shadow: 0 4px #980000;
+  box-shadow: 0 4px #980000;
 }
 
 .panel__btn--forStart:active, .panel__btn--forEnd:active {
-    box-shadow: none;
-    top: 6px;
+  box-shadow: none;
+  top: 6px;
 }
 
 /* 남은 시간 & 스코어 */
 .pannel__status {
-    display: flex;
-    flex-flow: row wrap;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .pannel__time {
-    min-width: 42px;
-    text-align: right;
+  min-width: 42px;
+  text-align: right;
 }
 
 .pannel__score {
-    text-align: left;
+  text-align: left;
 }
 
 #time, #score {
-    line-height: 43px;
+  line-height: 43px;
 }
 
 #time { 
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 /*
 게임 메인
 */
 .wrap {
-    display: flex;
-    margin-top: auto;
-    justify-content: center;
+  display: flex;
+  margin-top: auto;
+  justify-content: center;
 }
 
 #map {
-    width: 800px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    align-content: space-around;
-    background: #e4f7ba;
-    padding: 10px;
-    border: 5px solid #584A23;
-    border-radius: 5px;
+  width: 800px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: space-around;
+  background: #e4f7ba;
+  padding: 10px;
+  border: 5px solid #584A23;
+  border-radius: 5px;
 }
 
 /* Guide message style */
 .message {
-    font-size: 40px;
-    font-weight: 700;
-    padding: 80px 0;
-    text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  padding: 80px 0;
+  text-align: center;
 }
 
 /* Mobile */
 @media all and (max-width:528px) {
-    .headerTitle {
-        padding: 10px 0;
-    }
-    .pannel__status {
-        margin-top: 10px;
-    }
+  .headerTitle {
+    padding: 10px 0;
+  }
+  .pannel__status {
+    margin-top: 10px;
+  }
 }
